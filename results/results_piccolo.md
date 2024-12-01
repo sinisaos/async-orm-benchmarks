@@ -3,101 +3,101 @@
 ```bash
 Bombarding http://localhost:8000/small-table/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       539.17     112.55     901.55
-  Latency      362.51ms   215.46ms      1.67s
+  Reqs/sec       714.43     170.52    2282.31
+  Latency      276.37ms   134.96ms      1.37s
   Latency Distribution
-     50%   354.56ms
-     75%   390.07ms
-     90%   677.48ms
-     95%   710.40ms
-     99%      1.02s
+     50%   267.22ms
+     75%   297.98ms
+     90%   487.91ms
+     95%   535.62ms
+     99%   742.25ms
   HTTP codes:
-    1xx - 0, 2xx - 5573, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 7291, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:   790.51KB/s
+  Throughput:     1.01MB/s
 ```
 ### Small table (single row)
 ```bash
 Bombarding http://localhost:8000/small-table/1/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       537.92     112.66     934.87
-  Latency      363.11ms   226.63ms      2.42s
+  Reqs/sec       699.16     163.97    1212.38
+  Latency      280.92ms   144.28ms      1.26s
   Latency Distribution
-     50%   363.07ms
-     75%   378.67ms
-     90%   697.37ms
-     95%   728.53ms
-     99%      1.06s
+     50%   271.81ms
+     75%   305.10ms
+     90%   504.39ms
+     95%   542.58ms
+     99%   775.01ms
   HTTP codes:
-    1xx - 0, 2xx - 5563, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 7174, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:   119.23KB/s
+  Throughput:   154.49KB/s
 ```
 ### Mega table (50 rows)
 ```bash
 Bombarding http://localhost:8000/mega-table/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       262.78      76.04     517.71
-  Latency      728.84ms   276.90ms      3.38s
+  Reqs/sec       276.25      88.23     515.48
+  Latency      692.46ms   241.03ms      2.81s
   Latency Distribution
-     50%   735.50ms
-     75%   761.84ms
-     90%   808.16ms
-     95%      1.34s
-     99%      1.52s
+     50%   711.86ms
+     75%   774.46ms
+     90%   847.24ms
+     95%      0.88s
+     99%      1.53s
   HTTP codes:
-    1xx - 0, 2xx - 2821, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 2953, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:    14.20MB/s
+  Throughput:    15.06MB/s
 ```
 ### Mega table (single row)
 ```bash
 Bombarding http://localhost:8000/mega-table/1/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       363.69     120.78     836.42
-  Latency      529.88ms   289.17ms      3.07s
+  Reqs/sec       544.57     143.11    1003.20
+  Latency      358.70ms   163.74ms      1.66s
   Latency Distribution
-     50%   550.00ms
-     75%   613.04ms
-     90%      0.90s
-     95%      1.09s
-     99%      1.53s
+     50%   349.20ms
+     75%   378.41ms
+     90%   546.40ms
+     95%   680.98ms
+     99%      0.91s
   HTTP codes:
-    1xx - 0, 2xx - 3816, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 5629, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:   477.64KB/s
+  Throughput:   706.80KB/s
 ```
 ### Related table (50 rows)
 ```bash
 Bombarding http://localhost:8000/related-table/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       197.00      87.60     530.71
-  Latency         0.96s   539.13ms      4.92s
+  Reqs/sec       223.23     101.85     521.07
+  Latency      847.57ms   473.99ms      4.81s
   Latency Distribution
-     50%      0.98s
-     75%      1.02s
-     90%      1.79s
-     95%      1.91s
-     99%      3.01s
+     50%   824.86ms
+     75%      0.87s
+     90%      1.56s
+     95%      1.61s
+     99%      2.83s
   HTTP codes:
-    1xx - 0, 2xx - 2155, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 2422, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:     3.14MB/s
+  Throughput:     3.56MB/s
 ```
 ### Related table (single row)
 ```bash
 Bombarding http://localhost:8000/related-table/1/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       223.70      87.18     581.77
-  Latency      838.98ms   381.17ms      3.64s
+  Reqs/sec       256.84      98.49     761.04
+  Latency      735.53ms   336.15ms      2.77s
   Latency Distribution
-     50%   834.81ms
-     75%      0.91s
-     90%      1.27s
-     95%      1.38s
-     99%      1.94s
+     50%   721.13ms
+     75%      0.94s
+     90%      1.10s
+     95%      1.39s
+     99%      1.74s
   HTTP codes:
-    1xx - 0, 2xx - 2427, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 2756, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:   250.96KB/s
+  Throughput:   286.95KB/s
 ```

@@ -2,10 +2,16 @@ from contextlib import asynccontextmanager
 from decimal import Decimal
 
 import orjson
-import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from models import MegaTable, Question, Tag
+from models import (
+    Answer,
+    MegaTable,
+    Question,
+    Tag,
+    question_schema,
+    questions_schema,
+)
 from tortoise import Tortoise, connections
 
 
@@ -48,18 +54,26 @@ async def tag_single(pk: int) -> ORJSONResponse:
 @app.get("/related-table/")
 async def questions_list() -> ORJSONResponse:
     data = await Question.all().prefetch_related("user", "tags").limit(50)
-    return ORJSONResponse([dict(row) for row in data])
+    results = questions_schema.dump(data)
+    return ORJSONResponse([dict(row) for row in results])
 
 
 @app.get("/related-table/{pk:int}/")
 async def question_single(pk: int) -> ORJSONResponse:
-    data = (
-        await Question.filter(id=pk)
-        .prefetch_related("user", "tags")
-        .first()
+    question_data = (
+        await Question.filter(id=pk).prefetch_related("user", "tags").first()
+    )
+    answers_data = (
+        await Answer.all()
+        .prefetch_related("user")
+        .filter(question__id=pk)
+        .order_by("-id")
         .values()
     )
-    return ORJSONResponse(data)
+    question_data.__dict__["question_answers"] = answers_data
+    # Serialize the queryset
+    question = question_schema.dump(question_data)
+    return ORJSONResponse(question)
 
 
 @app.get("/mega-table/")
@@ -72,8 +86,3 @@ async def mega_table_list() -> ORJSONResponse:
 async def mega_table_single(pk: int) -> ORJSONResponse:
     data = await MegaTable.filter(id=pk).first().values()
     return ORJSONResponse(data)
-
-
-if __name__ == "__main__":
-
-    uvicorn.run(app, host="127.0.0.1", port=8000)

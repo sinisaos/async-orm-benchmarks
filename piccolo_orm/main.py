@@ -2,7 +2,6 @@ from contextlib import asynccontextmanager
 from decimal import Decimal
 
 import orjson
-import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from tables import (
@@ -74,7 +73,11 @@ async def question_single(pk: int) -> ORJSONResponse:
         .first()
         .output(nested=True)
     )
-    question_answers = await Answer.select().where(Answer.question_id == pk)
+    question_answers = (
+        await Answer.select()
+        .where(Answer.question_id == pk)
+        .order_by(Answer._meta.primary_key, ascending=False)
+    )
     data["question_answers"] = question_answers
     return ORJSONResponse(data)
 
@@ -94,8 +97,3 @@ async def mega_table_single(pk: int) -> ORJSONResponse:
         .output(load_json=True)
     )
     return ORJSONResponse(data)
-
-
-if __name__ == "__main__":
-
-    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,5 +1,7 @@
 import decimal
 
+from marshmallow import Schema
+from marshmallow import fields as flds
 from tortoise import fields
 from tortoise.models import Model
 
@@ -67,6 +69,7 @@ class Answer(Model):
 
 
 class MegaTable(Model):
+    id = fields.IntField(primary_key=True)
     float_col_1 = fields.FloatField(default=2.2)
     smallint_col_1 = fields.SmallIntField(default=2)
     integer_col_1 = fields.IntField(default=2000000)
@@ -114,3 +117,54 @@ class MegaTable(Model):
 
     class Meta:
         table = "mega_table"
+
+
+class TagSchema(Schema):
+    id = flds.Int()
+    name = flds.Str()
+
+
+class BaseUserSchema(Schema):
+    id = flds.Int()
+    username = flds.Str()
+    email = flds.Str()
+    superuser = flds.Bool()
+
+
+class ManyQuestionSchema(Schema):
+    id = flds.Int()
+    title = flds.Str()
+    content = flds.Str()
+    created_at = flds.DateTime()
+    updated_at = flds.DateTime()
+    views = flds.Int()
+    likes = flds.Int()
+    tags = flds.Nested(TagSchema, many=True, dump_only=True)
+    user = flds.Nested(BaseUserSchema, dump_only=True)
+
+
+class AnswerSchema(Schema):
+    id = flds.Int()
+    content = flds.Str()
+    created_at = flds.DateTime()
+    updated_at = flds.DateTime()
+    likes = flds.Int()
+
+
+class SingleQuestionSchema(Schema):
+    id = flds.Int()
+    title = flds.Str()
+    content = flds.Str()
+    created_at = flds.DateTime()
+    updated_at = flds.DateTime()
+    views = flds.Int()
+    likes = flds.Int()
+    tags = flds.Nested(TagSchema, many=True, dump_only=True)
+    user = flds.Nested(BaseUserSchema, dump_only=True)
+    question_answers = flds.Nested(AnswerSchema, many=True, dump_only=True)
+
+
+# marshmallow models schemas
+questions_schema = ManyQuestionSchema(many=True)
+# single question schema
+question_schema = SingleQuestionSchema()
