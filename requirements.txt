@@ -1,0 +1,9 @@
+asyncpg
+fastapi
+marshmallow
+mypy
+orjson
+piccolo
+ruff
+tortoise-orm
+uvicorn
