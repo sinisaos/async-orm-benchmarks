@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd benchmarks/piccolo_orm
-uvicorn main:app --log-level error
+python load_data.py

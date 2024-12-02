@@ -1,7 +1,7 @@
 import asyncio
 import random
 
-from piccolo_orm.tables import (
+from tables import (
     Answer,
     BaseUser,
     MegaTable,

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd tortoise_orm
+cd benchmarks/tortoise_orm
 uvicorn main:app --log-level error
