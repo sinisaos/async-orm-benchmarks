@@ -4,6 +4,7 @@ marshmallow
 mypy
 orjson
 piccolo
+sqlalchemy
 ruff
 tortoise-orm
 uvicorn
