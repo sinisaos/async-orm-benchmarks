@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import ORJSONResponse
-from models import Answer, BaseUser, MegaTable, Question, Tag, question_tag
+from models import Answer, MegaTable, Question, Tag
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import selectinload
@@ -8,7 +8,6 @@ from sqlalchemy.orm import selectinload
 engine = create_async_engine(
     "postgresql+asyncpg://postgres:postgres@localhost:5432/perfdb",
     pool_size=10,
-    echo=False,
 )
 
 async_session = async_sessionmaker(engine, expire_on_commit=False)
@@ -56,10 +55,7 @@ async def question_single(
     data = (
         await session.execute(
             select(Question)
-            .join(question_tag)
-            .join(BaseUser)
-            .join(Tag)
-            .where(Tag.id == pk)
+            .where(Question.id == pk)
             .options(
                 selectinload(Question.question_user),
                 selectinload(Question.tags),
