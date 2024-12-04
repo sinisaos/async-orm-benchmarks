@@ -4,6 +4,8 @@ marshmallow
 mypy
 orjson
 piccolo
+psqlpy
+psycopg[binary,pool]
 sqlalchemy
 ruff
 tortoise-orm
