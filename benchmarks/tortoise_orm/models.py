@@ -60,7 +60,7 @@ class Answer(Model):
     )
     question: fields.ForeignKeyRelation[Question] = fields.ForeignKeyField(
         "models.Question",
-        related_name="answers_question",
+        related_name="question_answers",
         on_delete=fields.CASCADE,
     )
 
@@ -149,6 +149,8 @@ class AnswerSchema(Schema):
     created_at = flds.DateTime()
     updated_at = flds.DateTime()
     likes = flds.Int()
+    user = flds.Pluck(BaseUserSchema, "id")
+    question = flds.Pluck(ManyQuestionSchema, "id")
 
 
 class SingleQuestionSchema(Schema):

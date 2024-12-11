@@ -73,6 +73,10 @@ async def question_single(pk: int) -> ORJSONResponse:
         .first()
         .output(nested=True)
     )
+    # TODO: Remove when reverse_lookup is released. After that we
+    # will only need Question.answers() without additional db query
+    # to get answers to a single question.
+    # PR: https://github.com/piccolo-orm/piccolo/pull/599
     question_answers = (
         await Answer.select()
         .where(Answer.question_id == pk)

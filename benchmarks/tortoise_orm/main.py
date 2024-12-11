@@ -13,6 +13,7 @@ from models import (
     questions_schema,
 )
 from tortoise import Tortoise, connections
+from tortoise.query_utils import Prefetch
 
 
 def decimal_serializer(obj):
@@ -61,16 +62,19 @@ async def questions_list() -> ORJSONResponse:
 @app.get("/related-table/{pk:int}/")
 async def question_single(pk: int) -> ORJSONResponse:
     question_data = (
-        await Question.filter(id=pk).prefetch_related("user", "tags").first()
+        await Question.filter(id=pk)
+        .prefetch_related(
+            "user",
+            "tags",
+            Prefetch(
+                "question_answers",
+                queryset=Answer.filter(question=pk).prefetch_related(
+                    "user", "question"
+                ),
+            ),
+        )
+        .first()
     )
-    answers_data = (
-        await Answer.all()
-        .prefetch_related("user")
-        .filter(question__id=pk)
-        .order_by("-id")
-        .values()
-    )
-    question_data.__dict__["question_answers"] = answers_data
     # Serialize the queryset
     question = question_schema.dump(question_data)
     return ORJSONResponse(question)

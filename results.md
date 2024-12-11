@@ -193,18 +193,18 @@ Statistics        Avg      Stdev        Max
 ```bash
 Bombarding http://localhost:8000/related-table/1/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec       173.51      82.14     457.81
-  Latency         1.07s   484.63ms      5.26s
+  Reqs/sec       117.00      66.58     407.29
+  Latency         1.53s   793.26ms      6.65s
   Latency Distribution
-     50%      0.96s
-     75%      1.26s
-     90%      1.57s
-     95%      1.84s
-     99%      3.03s
+     50%      1.38s
+     75%      1.77s
+     90%      2.37s
+     95%      3.42s
+     99%      4.30s
   HTTP codes:
-    1xx - 0, 2xx - 1928, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 1369, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:   126.59KB/s
+  Throughput:    87.24KB/s
 ```
 # SqlAlchemy ORM
 ### Small table (50 rows)
@@ -300,18 +300,18 @@ Statistics        Avg      Stdev        Max
 ```bash
 Bombarding http://localhost:8000/related-table/1/ for 10s using 200 connection(s)
 Statistics        Avg      Stdev        Max
-  Reqs/sec        73.13     110.80     457.48
-  Latency         2.27s      1.90s      7.80s
+  Reqs/sec       113.86     129.64     519.85
+  Latency         1.60s   392.48ms      3.61s
   Latency Distribution
-     50%      1.40s
-     75%      1.55s
-     90%      5.82s
-     95%      7.46s
-     99%      7.71s
+     50%      1.50s
+     75%      1.73s
+     90%      1.82s
+     95%      1.86s
+     99%      3.54s
   HTTP codes:
-    1xx - 0, 2xx - 927, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 1338, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
-  Throughput:    65.09KB/s
+  Throughput:    83.84KB/s
 ```
 # Asyncpg
 ### Small table (50 rows)

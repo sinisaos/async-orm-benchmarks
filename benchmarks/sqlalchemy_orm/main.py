@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import ORJSONResponse
-from models import Answer, MegaTable, Question, Tag
+from models import MegaTable, Question, Tag
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import selectinload
@@ -59,14 +59,10 @@ async def question_single(
             .options(
                 selectinload(Question.question_user),
                 selectinload(Question.tags),
+                selectinload(Question.question_answers),
             )
         )
     ).scalar()
-    data.__dict__["question_answers"] = (
-        (await session.execute(select(Answer).where(Answer.question_id == pk)))
-        .scalars()
-        .all()
-    )
     return data
 
 

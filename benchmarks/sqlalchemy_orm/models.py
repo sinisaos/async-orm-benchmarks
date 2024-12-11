@@ -59,6 +59,9 @@ class Question(Base):
     tags: Mapped[List["Tag"]] = relationship(secondary=question_tag)
 
     question_user: Mapped[BaseUser] = relationship("BaseUser")
+    question_answers: Mapped[List["Answer"]] = relationship(
+        "Answer", backref="answer"
+    )
 
 
 class Tag(Base):
