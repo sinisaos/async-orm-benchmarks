@@ -49,9 +49,7 @@ async def questions_list(session=Depends(get_session)):
 
 
 @app.get("/related-table/{pk:int}/")
-async def question_single(
-    pk: int, session=Depends(get_session)
-) -> ORJSONResponse:
+async def question_single(pk: int, session=Depends(get_session)):
     data = (
         await session.execute(
             select(Question)
