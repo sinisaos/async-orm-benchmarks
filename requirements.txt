@@ -1,4 +1,5 @@
 asyncpg
+django-ninja
 fastapi
 marshmallow
 mypy
