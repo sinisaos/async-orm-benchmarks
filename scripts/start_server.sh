@@ -2,7 +2,7 @@
 
 echo Choose an ORM or driver:
 
-select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django;
+select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim;
 do
     case $result in "piccolo") 
         cd benchmarks/piccolo_orm
@@ -31,6 +31,10 @@ do
         "django") 
         cd benchmarks/django_orm
         uvicorn core.asgi:application --log-level error
+        ;;
+        "mayim") 
+        cd benchmarks/mayim
+        uvicorn main:app --log-level error
         ;;
         *)
         echo "ORM or driver does not exist!"
