@@ -2,6 +2,7 @@ asyncpg
 django-ninja
 fastapi
 marshmallow
+mayim
 mypy
 orjson
 piccolo

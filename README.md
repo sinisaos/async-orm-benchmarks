@@ -1,6 +1,6 @@
-Python async ORM and drivers benchmarks.
+Python async ORMs, query builders and drivers benchmarks.
 
--------------------------------------------------------
+---------------------------------------------------------
 
 ## Instalation
 
