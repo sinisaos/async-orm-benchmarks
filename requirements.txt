@@ -6,6 +6,7 @@ mayim
 mypy
 orjson
 piccolo
+prisma
 psqlpy
 psycopg[binary,pool]
 sqlalchemy

@@ -2,7 +2,7 @@
 
 echo Choose an ORM or driver:
 
-select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim;
+select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim prisma;
 do
     case $result in "piccolo") 
         cd benchmarks/piccolo_orm
@@ -34,6 +34,11 @@ do
         ;;
         "mayim") 
         cd benchmarks/mayim
+        uvicorn main:app --log-level error
+        ;;
+        "prisma") 
+        cd benchmarks/prisma_orm
+        prisma generate
         uvicorn main:app --log-level error
         ;;
         *)
