@@ -4,7 +4,7 @@ echo Choose an ORM or driver:
 
 generate_output() {
 
-    select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim;
+    select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim prisma;
     do
         case $result in "piccolo") 
             echo '# Piccolo ORM'
@@ -29,6 +29,9 @@ generate_output() {
             ;;
             "mayim") 
             echo '# Mayim'
+            ;;
+            "prisma") 
+            echo '# Prisma'
             ;;
             *)
             echo "ORM or driver does not exist!"

@@ -1,0 +1,88 @@
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = "5"
+  enable_experimental_decimal = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/perfdb?connection_limit=10"
+}
+
+model answer {
+  id          Int        @id @default(autoincrement())
+  content     String     @default("")
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime   @default(now()) @db.Timestamptz(6)
+  likes       Int        @default(0)
+  user_id     Int?
+  question_id Int?
+  question    question?  @relation(fields: [question_id], references: [id], onDelete: Cascade)
+  base_user   base_user? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model base_user {
+  id        Int        @id @default(autoincrement())
+  username  String     @default("") @db.VarChar(255)
+  email     String     @default("") @db.VarChar(255)
+  superuser Boolean    @default(false)
+  answer    answer[]
+  question  question[]
+}
+
+model mega_table {
+  id             Int     @id @default(autoincrement())
+  float_col_1    Float   @default(2.2)
+  smallint_col_1 Int     @default(2) @db.SmallInt
+  integer_col_1  Int     @default(2000000)
+  bigint_col_1   BigInt  @default(99999999)
+  varchar_col_1  String  @default("value1") @db.VarChar(255)
+  text_col_1     String  @default("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.")
+  numeric_col_1  Decimal @default(2.2) @db.Decimal(5, 2)
+  json_col_1     Json    @default("{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}") @db.Json
+  float_col_2    Float   @default(2.2)
+  smallint_col_2 Int     @default(2) @db.SmallInt
+  integer_col_2  Int     @default(2000000)
+  bigint_col_2   BigInt  @default(99999999)
+  varchar_col_2  String  @default("value1") @db.VarChar(255)
+  text_col_2     String  @default("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.")
+  numeric_col_2  Decimal @default(2.2) @db.Decimal(5, 2)
+  json_col_2     Json    @default("{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}") @db.Json
+  float_col_3    Float   @default(2.2)
+  smallint_col_3 Int     @default(2) @db.SmallInt
+  integer_col_3  Int     @default(2000000)
+  bigint_col_3   BigInt  @default(99999999)
+  varchar_col_3  String  @default("value1") @db.VarChar(255)
+  text_col_3     String  @default("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.")
+  numeric_col_3  Decimal @default(2.2) @db.Decimal(5, 2)
+  json_col_3     Json    @default("{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}") @db.Json
+}
+
+model question {
+  id           Int            @id @default(autoincrement())
+  title        String         @default("") @db.VarChar(255)
+  content      String         @default("")
+  created_at   DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime       @default(now()) @db.Timestamptz(6)
+  views        Int            @default(0)
+  likes        Int            @default(0)
+  user_id      Int?
+  answer       answer[]
+  base_user    base_user?     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  question_tag question_tag[]
+}
+
+model question_tag {
+  id          Int       @id @default(autoincrement())
+  question_id Int?
+  tag_id      Int?
+  question    question? @relation(fields: [question_id], references: [id], onDelete: Cascade)
+  tag         tag?      @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+}
+
+model tag {
+  id           Int            @id @default(autoincrement())
+  name         String         @default("") @db.VarChar(255)
+  question_tag question_tag[]
+}
