@@ -643,3 +643,7 @@ and a related table that has multiple related tables (both `foreign key` and `ma
 ## Results
 
 This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier) load test tool with `200 connections` for `10 seconds` on `uvicorn` server with single worker. The results are in [results.md](https://github.com/sinisaos/async-orm-benchmarks/blob/main/results.md) and will be different on a better machine (I'm using an old machine with only `4GB RAM` and `Intel Core i3-6006U`). You can also use [Locust](https://locust.io/) for really nice GUI testing and reporting. PRs are welcome. Thanks in advance.
+
+![chart](https://github.com/user-attachments/assets/d20f7cb1-8998-47f4-9c14-753dd55bb058)
+
+
