@@ -30,8 +30,29 @@ class ORJSONResponse(JSONResponse):
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     await Tortoise.init(
-        db_url="postgres://postgres:postgres@localhost:5432/perfdb",
-        modules={"models": ["models"]},
+        _enable_global_fallback=True,
+        config={
+            "connections": {
+                "default": {
+                    "engine": "tortoise.backends.asyncpg",
+                    "credentials": {
+                        "database": "perfdb",
+                        "host": "localhost",
+                        "password": "postgres",
+                        "port": 5432,
+                        "user": "postgres",
+                        "minsize": 5,
+                        "maxsize": 20,
+                    },
+                },
+            },
+            "apps": {
+                "models": {
+                    "models": ["models"],
+                    "default_connection": "default",
+                },
+            },
+        },
     )
     yield
     await connections.close_all()
@@ -50,6 +71,13 @@ async def tags_list() -> ORJSONResponse:
 async def tag_single(pk: int) -> ORJSONResponse:
     data = await Tag.filter(id=pk).first().values()
     return ORJSONResponse(data)
+
+
+@app.post("/small-table/bulk/")
+async def bulk_insert_tortoise():
+    items = [Tag(name=f"item_{i}") for i in range(100)]
+    await Tag.bulk_create(items)
+    return {"status": "ok"}
 
 
 @app.get("/related-table/")

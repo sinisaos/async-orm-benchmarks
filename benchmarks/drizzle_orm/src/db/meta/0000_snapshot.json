@@ -1,0 +1,611 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.base_user": {
+      "name": "base_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "superuser": {
+          "name": "superuser",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.question": {
+      "name": "question",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_question_user_id": {
+          "name": "idx_question_user_id",
+          "columns": [
+            {
+              "expression": "user_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "question_user_id_fkey": {
+          "name": "question_user_id_fkey",
+          "tableFrom": "question",
+          "tableTo": "base_user",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.tag": {
+      "name": "tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.question_tag": {
+      "name": "question_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tag_id": {
+          "name": "tag_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_question_tag_question_id": {
+          "name": "idx_question_tag_question_id",
+          "columns": [
+            {
+              "expression": "question_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_question_tag_tag_id": {
+          "name": "idx_question_tag_tag_id",
+          "columns": [
+            {
+              "expression": "tag_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "uq_question_tag_pair": {
+          "name": "uq_question_tag_pair",
+          "columns": [
+            {
+              "expression": "question_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "tag_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "question_tag_question_id_fkey": {
+          "name": "question_tag_question_id_fkey",
+          "tableFrom": "question_tag",
+          "tableTo": "question",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "question_tag_tag_id_fkey": {
+          "name": "question_tag_tag_id_fkey",
+          "tableFrom": "question_tag",
+          "tableTo": "tag",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "tag_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.answer": {
+      "name": "answer",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_answer_question_id": {
+          "name": "idx_answer_question_id",
+          "columns": [
+            {
+              "expression": "question_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_answer_user_id": {
+          "name": "idx_answer_user_id",
+          "columns": [
+            {
+              "expression": "user_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "answer_user_id_fkey": {
+          "name": "answer_user_id_fkey",
+          "tableFrom": "answer",
+          "tableTo": "base_user",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "answer_question_id_fkey": {
+          "name": "answer_question_id_fkey",
+          "tableFrom": "answer",
+          "tableTo": "question",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.mega_table": {
+      "name": "mega_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "float_col_1": {
+          "name": "float_col_1",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2.2
+        },
+        "smallint_col_1": {
+          "name": "smallint_col_1",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2
+        },
+        "integer_col_1": {
+          "name": "integer_col_1",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2000000
+        },
+        "bigint_col_1": {
+          "name": "bigint_col_1",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 99999999
+        },
+        "varchar_col_1": {
+          "name": "varchar_col_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'value1'"
+        },
+        "text_col_1": {
+          "name": "text_col_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'"
+        },
+        "numeric_col_1": {
+          "name": "numeric_col_1",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'2.2'"
+        },
+        "json_col_1": {
+          "name": "json_col_1",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}'::json"
+        },
+        "float_col_2": {
+          "name": "float_col_2",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2.2
+        },
+        "smallint_col_2": {
+          "name": "smallint_col_2",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2
+        },
+        "integer_col_2": {
+          "name": "integer_col_2",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2000000
+        },
+        "bigint_col_2": {
+          "name": "bigint_col_2",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 99999999
+        },
+        "varchar_col_2": {
+          "name": "varchar_col_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'value1'"
+        },
+        "text_col_2": {
+          "name": "text_col_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'"
+        },
+        "numeric_col_2": {
+          "name": "numeric_col_2",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'2.2'"
+        },
+        "json_col_2": {
+          "name": "json_col_2",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}'::json"
+        },
+        "float_col_3": {
+          "name": "float_col_3",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2.2
+        },
+        "smallint_col_3": {
+          "name": "smallint_col_3",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2
+        },
+        "integer_col_3": {
+          "name": "integer_col_3",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2000000
+        },
+        "bigint_col_3": {
+          "name": "bigint_col_3",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 99999999
+        },
+        "varchar_col_3": {
+          "name": "varchar_col_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'value1'"
+        },
+        "text_col_3": {
+          "name": "text_col_3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'"
+        },
+        "numeric_col_3": {
+          "name": "numeric_col_3",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'2.2'"
+        },
+        "json_col_3": {
+          "name": "json_col_3",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"a\":1,\"b\":\"b\",\"c\":[2],\"d\":{\"e\":3},\"f\":true}'::json"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}

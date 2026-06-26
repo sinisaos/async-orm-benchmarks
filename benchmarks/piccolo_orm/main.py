@@ -47,6 +47,13 @@ async def tag_single(pk: int) -> ORJSONResponse:
     return ORJSONResponse(data)
 
 
+@app.post("/small-table/bulk/")
+async def bulk_insert_piccolo():
+    items = [{"name": f"item_{i}"} for i in range(100)]
+    await Tag.insert(*[Tag(**item) for item in items]).run()
+    return {"status": "ok"}
+
+
 @app.get("/related-table/")
 async def questions_list() -> ORJSONResponse:
     data = (

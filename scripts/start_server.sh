@@ -2,44 +2,27 @@
 
 echo Choose an ORM or driver:
 
-select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim prisma;
+select result in piccolo tortoise drizzle ent sqlc;
 do
     case $result in "piccolo") 
         cd benchmarks/piccolo_orm
-        uvicorn main:app --log-level error
+        uvicorn main:app --workers 4 --log-level error
         ;; 
         "tortoise") 
         cd benchmarks/tortoise_orm
-        uvicorn main:app --log-level error
+        uvicorn main:app --workers 4 --log-level error
         ;;
-        "sqlalchemy") 
-        cd benchmarks/sqlalchemy_orm
-        uvicorn main:app --log-level error
-        ;; 
-        "asyncpg") 
-        cd benchmarks/asyncpg
-        uvicorn main:app --log-level error
-        ;; 
-        "psqlpy") 
-        cd benchmarks/psqlpy
-        uvicorn main:app --log-level error
-        ;; 
-        "psycopg") 
-        cd benchmarks/psycopg
-        uvicorn main:app --log-level error
+        "drizzle") 
+        cd benchmarks/drizzle_orm
+        pm2 start src/index.js --instances 4
         ;;
-        "django") 
-        cd benchmarks/django_orm
-        uvicorn core.asgi:application --log-level error
+        "ent") 
+        cd benchmarks/ent_orm
+        ./main
         ;;
-        "mayim") 
-        cd benchmarks/mayim
-        uvicorn main:app --log-level error
-        ;;
-        "prisma") 
-        cd benchmarks/prisma_orm
-        prisma generate
-        uvicorn main:app --log-level error
+        "sqlc") 
+        cd benchmarks/sqlc
+        ./main
         ;;
         *)
         echo "ORM or driver does not exist!"

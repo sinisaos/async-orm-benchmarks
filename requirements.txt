@@ -1,15 +1,9 @@
 asyncpg
-django-ninja
 fastapi
 marshmallow
-mayim
 mypy
 orjson
 piccolo
-prisma
-psqlpy
-psycopg[binary,pool]
-sqlalchemy
 ruff
 tortoise-orm
 uvicorn
