@@ -72,7 +72,7 @@ class MegaTable(Table, db=DB):
     smallint_col_1 = SmallInt(default=2)
     integer_col_1 = Integer(default=2000000)
     bigint_col_1 = BigInt(default=99999999)
-    varchar_col_1 = Varchar(max_length=255, default="value1")
+    varchar_col_1 = Varchar(length=255, default="value1")
     text_col_1 = Text(
         default="Contrary to popular belief, Lorem Ipsum is not simply "
         "random text. It has roots in a piece of classical Latin "
@@ -87,7 +87,7 @@ class MegaTable(Table, db=DB):
     smallint_col_2 = SmallInt(default=2)
     integer_col_2 = Integer(default=2000000)
     bigint_col_2 = BigInt(default=99999999)
-    varchar_col_2 = Varchar(max_length=255, default="value1")
+    varchar_col_2 = Varchar(length=255, default="value1")
     text_col_2 = Text(
         default="Contrary to popular belief, Lorem Ipsum is not simply "
         "random text. It has roots in a piece of classical Latin "
@@ -102,7 +102,7 @@ class MegaTable(Table, db=DB):
     smallint_col_3 = SmallInt(default=2)
     integer_col_3 = Integer(default=2000000)
     bigint_col_3 = BigInt(default=99999999)
-    varchar_col_3 = Varchar(max_length=255, default="value1")
+    varchar_col_3 = Varchar(length=255, default="value1")
     text_col_3 = Text(
         default="Contrary to popular belief, Lorem Ipsum is not simply "
         "random text. It has roots in a piece of classical Latin "

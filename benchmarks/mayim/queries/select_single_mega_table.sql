@@ -1,1 +1,0 @@
-SELECT * FROM mega_table WHERE id = $1;

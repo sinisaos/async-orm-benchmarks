@@ -163,7 +163,9 @@ class SingleQuestionSchema(Schema):
     likes = flds.Int()
     tags = flds.Nested(TagSchema, many=True, dump_only=True)
     user = flds.Nested(BaseUserSchema, dump_only=True)
-    question_answers = flds.Nested(AnswerSchema, many=True, dump_only=True)
+    question_answers = flds.Nested(
+        AnswerSchema, many=True, dump_only=True, exclude=["question"]
+    )
 
 
 # marshmallow models schemas

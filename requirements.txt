@@ -5,8 +5,8 @@ marshmallow
 mayim
 mypy
 orjson
+oxyde
 piccolo
-prisma
 psqlpy
 psycopg[binary,pool]
 sqlalchemy

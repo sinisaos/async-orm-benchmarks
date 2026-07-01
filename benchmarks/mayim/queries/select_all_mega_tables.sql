@@ -1,1 +1,0 @@
-SELECT * FROM mega_table LIMIT $1;

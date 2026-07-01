@@ -4,7 +4,7 @@ echo Choose an ORM or driver:
 
 generate_output() {
 
-    select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django mayim prisma;
+    select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django oxyde;
     do
         case $result in "piccolo") 
             echo '# Piccolo ORM'
@@ -13,7 +13,7 @@ generate_output() {
             echo '# Tortoise ORM'
             ;;
             "sqlalchemy") 
-            echo '# SqlAlchemy ORM'
+            echo '# SQLAlchemy ORM'
             ;; 
             "asyncpg") 
             echo '# Asyncpg'
@@ -27,11 +27,8 @@ generate_output() {
             "django") 
             echo '# Django ORM'
             ;;
-            "mayim") 
-            echo '# Mayim'
-            ;;
-            "prisma") 
-            echo '# Prisma'
+            "oxyde") 
+            echo '# Oxyde ORM'
             ;;
             *)
             echo "ORM or driver does not exist!"
@@ -39,27 +36,27 @@ generate_output() {
         esac
         echo '### Small table (50 rows)'
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/small-table/
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/small-table/
         echo '```'
         echo "### Small table (single row)"
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/small-table/1/ 
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/small-table/1/ 
         echo '```'
         echo "### Mega table (50 rows)"
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/mega-table/
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/mega-table/
         echo '```'
         echo "### Mega table (single row)"
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/mega-table/1/
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/mega-table/1/
         echo '```'
         echo "### Related table (50 rows)"
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/related-table/
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/related-table/
         echo '```'
         echo "### Related table (single row)"
         echo '```bash'
-        bombardier -c 200 -d 10s -l --print=intro,result http://localhost:8000/related-table/1/
+        bombardier -c 200 -d 60s -l --print=intro,result http://localhost:8000/related-table/1/
         echo '```'
     exit 1
     done 

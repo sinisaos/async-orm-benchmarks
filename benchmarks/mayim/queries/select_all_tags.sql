@@ -1,1 +1,0 @@
-SELECT * FROM tag LIMIT $1;

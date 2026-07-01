@@ -30,8 +30,29 @@ class ORJSONResponse(JSONResponse):
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     await Tortoise.init(
-        db_url="postgres://postgres:postgres@localhost:5432/perfdb",
-        modules={"models": ["models"]},
+        _enable_global_fallback=True,
+        config={
+            "connections": {
+                "default": {
+                    "engine": "tortoise.backends.asyncpg",
+                    "credentials": {
+                        "database": "perfdb",
+                        "host": "localhost",
+                        "password": "postgres",
+                        "port": 5432,
+                        "user": "postgres",
+                        "minsize": 5,
+                        "maxsize": 20,
+                    },
+                },
+            },
+            "apps": {
+                "models": {
+                    "models": ["models"],
+                    "default_connection": "default",
+                },
+            },
+        },
     )
     yield
     await connections.close_all()
@@ -68,9 +89,7 @@ async def question_single(pk: int) -> ORJSONResponse:
             "tags",
             Prefetch(
                 "question_answers",
-                queryset=Answer.filter(question=pk).prefetch_related(
-                    "user", "question"
-                ),
+                queryset=Answer.filter(question=pk).prefetch_related("user"),
             ),
         )
         .first()
