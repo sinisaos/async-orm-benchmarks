@@ -35,14 +35,16 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/small-table/")
 async def tags_list(request: Request) -> ORJSONResponse:
     query = "SELECT * FROM tag LIMIT 50"
-    rows = await request.app.state.db_pool.execute(query)
+    async with request.app.state.db_pool.acquire() as conn:
+        rows = await conn.execute(query)
     return ORJSONResponse(rows.result())
 
 
 @app.get("/small-table/{pk:int}/")
 async def tag_single(request: Request, pk: int) -> ORJSONResponse:
     query = "SELECT * FROM tag WHERE id = $1"
-    row = await request.app.state.db_pool.execute(query, [pk])
+    async with request.app.state.db_pool.acquire() as conn:
+        row = await conn.execute(query, [pk])
     return ORJSONResponse(row.result()[0])
 
 
@@ -68,7 +70,8 @@ async def questions_list(request: Request) -> ORJSONResponse:
         ORDER BY q.id
         LIMIT 50
         """
-    rows = await request.app.state.db_pool.execute(query)
+    async with request.app.state.db_pool.acquire() as conn:
+        rows = await conn.execute(query)
     return ORJSONResponse(rows.result())
 
 
@@ -98,7 +101,8 @@ async def question_single(request: Request, pk: int) -> ORJSONResponse:
         WHERE q.id = $1
         GROUP BY q.id, u.id
     """
-    row = await request.app.state.db_pool.execute(query, [pk])
+    async with request.app.state.db_pool.acquire() as conn:
+        row = await conn.execute(query, [pk])
     return ORJSONResponse(row.result()[0])
 
 
@@ -107,12 +111,14 @@ async def mega_table_list(
     request: Request,
 ) -> ORJSONResponse:
     query = "SELECT * FROM mega_table LIMIT 50"
-    rows = await request.app.state.db_pool.execute(query)
+    async with request.app.state.db_pool.acquire() as conn:
+        rows = await conn.execute(query)
     return ORJSONResponse(rows.result())
 
 
 @app.get("/mega-table/{pk:int}/")
 async def mega_table_single(request: Request, pk: int) -> ORJSONResponse:
     query = "SELECT * FROM mega_table WHERE id = $1"
-    row = await request.app.state.db_pool.execute(query, [pk])
+    async with request.app.state.db_pool.acquire() as conn:
+        row = await conn.execute(query, [pk])
     return ORJSONResponse(row.result()[0])

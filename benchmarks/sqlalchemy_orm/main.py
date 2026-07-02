@@ -1,5 +1,4 @@
 from fastapi import Depends, FastAPI
-from fastapi.responses import ORJSONResponse
 from models import MegaTable, Question, Tag
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
@@ -18,7 +17,7 @@ async def get_session():
         yield session
 
 
-app = FastAPI(default_response_class=ORJSONResponse)
+app = FastAPI()
 
 
 @app.get("/small-table/")
