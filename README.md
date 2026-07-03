@@ -643,7 +643,7 @@ and a related table that has multiple related tables (both `foreign key` and `ma
 
 This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier) load test tool with `200 connections` for `60 seconds` on `uvicorn` server with single worker. The results are in [results.md](https://github.com/sinisaos/async-orm-benchmarks/blob/main/results.md) and will be different on a different machine (Test machine has `16GB RAM` and `13th Gen Intel© Core™ i5-1334U × 10`). You can also use [Locust](https://locust.io/) for really nice GUI testing and reporting. PRs are welcome. Thanks in advance.
 
-### Average number of requests per second (Reqs/sec)
+### Average requests per second (reqs/sec)
 
 | ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
 | :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
@@ -658,15 +658,15 @@ This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier)
 
 ---
 
-### Average latency in ms
+### P99 latency (ms)
 
 | ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
 | :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
-| **Piccolo**    | 104.7      | 97.2      | 193.5     | 113.8    | 231.2        | 252.0       |
-| **Tortoise**   | 83.7       | 92.5      | 208.6     | 129.0    | 630.6        | 399.3       |
-| **SQLAlchemy** | 300.9      | 167.0     | 1080.0    | 190.2    | 1630.0       | 539.3       |
-| **Asyncpg**    | 92.0       | 91.9      | 173.3     | 92.9     | 143.3        | 96.9        |
-| **PSQLPy**     | 163.4      | 92.8      | 353.3     | 95.6     | 226.5        | 99.5        |
-| **Psycopg**    | 135.5      | 134.3     | 229.2     | 143.5    | 193.5        | 140.7       |
-| **Django**     | 665.4      | 563.0     | 1740.0    | 653.0    | 9270.0       | 10720.0     |
-| **Oxyde**      | 116.8      | 113.4     | 235.3     | 117.7    | 495.1        | 445.6       |
+| **Piccolo**    | 246.1      | 195.9     | 394.8     | 319.0    | 486.4        | 594.5       |
+| **Tortoise**   | 218.9      | 253.4     | 558.2     | 349.2    | 1220.0       | 793.2       |
+| **SQLAlchemy** | 1090.0     | 494.6     | 3320.0    | 519.6    | 7900.0       | 1770.0      |
+| **Asyncpg**    | 179.0      | 179.8     | 360.1     | 180.9    | 285.5        | 189.4       |
+| **PSQLPy**     | 189.6      | 129.2     | 395.9     | 134.4    | 286.7        | 138.8       |
+| **Psycopg**    | 159.3      | 157.0     | 258.1     | 188.0    | 254.1        | 158.8       |
+| **Django**     | 940.0      | 794.6     | 3720.0    | 930.0    | 10020.0      | 13130.0     |
+| **Oxyde**      | 146.7      | 142.4     | 320.9     | 153.5    | 583.7        | 498.9       |
