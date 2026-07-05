@@ -25,7 +25,7 @@ class ORJSONResponse(JSONResponse):
 app = FastAPI(
     lifespan=db.lifespan(
         default="postgres://postgres:postgres@localhost:5432/perfdb",
-        settings=PoolSettings(max_connections=10),
+        settings=PoolSettings(max_connections=20),
     )
 )
 

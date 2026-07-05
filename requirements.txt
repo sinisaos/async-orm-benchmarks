@@ -5,7 +5,6 @@ mypy
 orjson
 oxyde
 piccolo
-e19e7939225f47178f9ec593ea3481481f6bcf14
 ruff
 tortoise-orm
 uvicorn

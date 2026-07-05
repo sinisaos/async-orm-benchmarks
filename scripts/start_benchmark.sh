@@ -51,6 +51,7 @@ generate_output() {
         echo "### Related table (single row)"
         echo '```bash'
         bombardier -c 500 -d 1m -l --print=intro,result http://localhost:8000/related-table/1/
+        echo '```'
     exit 1
     done 
 }

@@ -18,10 +18,14 @@ do
         ;;
         "drizzle") 
         cd benchmarks/drizzle_orm
-        pm2 start src/index.js --instances 4
+        pm2 start dist/index.js --instances 4
         ;;
         "ent") 
         cd benchmarks/ent_orm
+        ./main
+        ;;
+        "sqlc") 
+        cd benchmarks/sqlc
         ./main
         ;;
         *)

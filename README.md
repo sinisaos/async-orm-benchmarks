@@ -12,9 +12,25 @@ git clone https://github.com/sinisaos/async-orm-benchmarks.git
 
 ## Install requirements
 
+### Python
+
 ```bash
 cd async-orm-benchmarks/
 pip install -r requirements.txt
+```
+
+### Typescript
+
+```bash
+cd async-orm-benchmarks/benchmarks/drizzle_orm
+npm install
+```
+
+### Golang
+
+```bash
+cd async-orm-benchmarks/benchmarks/ent_orm
+go mod tidy
 ```
 
 ## Create database
@@ -641,32 +657,28 @@ and a related table that has multiple related tables (both `foreign key` and `ma
 
 ## Results
 
-This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier) load test tool with `200 connections` for `60 seconds` on `uvicorn` server with single worker. The results are in [results.md](https://github.com/sinisaos/async-orm-benchmarks/blob/main/results.md) and will be different on a different machine (Test machine has `16GB RAM` and `13th Gen Intel© Core™ i5-1334U × 10`). You can also use [Locust](https://locust.io/) for really nice GUI testing and reporting. PRs are welcome. Thanks in advance.
+This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier) load test tool with `500 connections` for `60 seconds` on `uvicorn` server with 4 workers (for Python), `pm2` with 4 instances (Typescript) and Golang use all CPU cores. The results are in [results.md](https://github.com/sinisaos/async-orm-benchmarks/blob/main/results.md) and will be different on a different machine (Test machine has `16GB RAM` and `13th Gen Intel© Core™ i5-1334U × 10`). You can also use [Locust](https://locust.io/) for really nice GUI testing and reporting. PRs are welcome. Thanks in advance.
 
 ### Average requests per second (reqs/sec)
 
-| ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
-| :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
-| **Piccolo**    | 1908       | 2057      | 1032      | 1757     | 863          | 792         |
-| **Tortoise**   | 2388       | 2160      | 957       | 1550     | 315          | 499         |
-| **SQLAlchemy** | 663        | 1196      | 184       | 1050     | 121          | 369         |
-| **Asyncpg**    | 2172       | 2174      | 1153      | 2152     | 1394         | 2064        |
-| **PSQLPy**     | 1222       | 2153      | 564       | 2090     | 882          | 2010        |
-| **Psycopg**    | 1474       | 1488      | 871       | 1392     | 1032         | 1420        |
-| **Django**     | 299        | 353       | 113       | 304      | 19           | 17          |
-| **Oxyde**      | 1711       | 1762      | 848       | 1697     | 402          | 447         |
+| ORM / Library | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
+| :------------ | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
+| **Piccolo**   | 6021       | 5009      | 2138      | 3818     | 1594         | 1933        |
+| **Tortoise**  | 5342       | 4597      | 2026      | 3404     | 730          | 1153        |
+| **Oxyde**     | 5459       | 5218      | 1748      | 4748     | 1371         | 1902        |
+| **Drizzle**   | 10810      | 10667     | 2511      | 6453     | 2479         | 3094        |
+| **Ent**       | 7795       | 8024      | 5970      | 7477     | 2480         | 2028        |
+| **SQLC**      | 8127       | 8361      | 7009      | 7960     | 6460         | 7139        |
 
 ---
 
 ### P99 latency (ms)
 
-| ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
-| :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
-| **Piccolo**    | 246.1      | 195.9     | 394.8     | 319.0    | 486.4        | 594.5       |
-| **Tortoise**   | 218.9      | 253.4     | 558.2     | 349.2    | 1220.0       | 793.2       |
-| **SQLAlchemy** | 1090.0     | 494.6     | 3320.0    | 519.6    | 7900.0       | 1770.0      |
-| **Asyncpg**    | 179.0      | 179.8     | 360.1     | 180.9    | 285.5        | 189.4       |
-| **PSQLPy**     | 189.6      | 129.2     | 395.9     | 134.4    | 286.7        | 138.8       |
-| **Psycopg**    | 159.3      | 157.0     | 258.1     | 188.0    | 254.1        | 158.8       |
-| **Django**     | 940.0      | 794.6     | 3720.0    | 930.0    | 10020.0      | 13130.0     |
-| **Oxyde**      | 146.7      | 142.4     | 320.9     | 153.5    | 583.7        | 498.9       |
+| ORM / Library | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
+| :------------ | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
+| **Piccolo**   | 219.0      | 333.0     | 808.0     | 444.0    | 1210.0       | 930.0       |
+| **Tortoise**  | 222.1      | 364.0     | 1040.0    | 498.9    | 1800.0       | 1440.0      |
+| **Oxyde**     | 171.9      | 159.0     | 505.2     | 204.2    | 640.0        | 470.0       |
+| **Drizzle**   | 69.4       | 77.2      | 298.1     | 109.3    | 276.4        | 289.4       |
+| **Ent**       | 278.6      | 268.4     | 373.9     | 289.3    | 544.2        | 599.3       |
+| **SQLC**      | 267.2      | 256.6     | 312.3     | 272.0    | 339.1        | 302.2       |
