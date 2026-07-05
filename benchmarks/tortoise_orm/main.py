@@ -96,9 +96,7 @@ async def question_single(pk: int) -> ORJSONResponse:
             "tags",
             Prefetch(
                 "question_answers",
-                queryset=Answer.filter(question=pk).prefetch_related(
-                    "user", "question"
-                ),
+                queryset=Answer.filter(question=pk).prefetch_related("user"),
             ),
         )
         .first()

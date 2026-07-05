@@ -4,13 +4,16 @@ echo Choose an ORM or driver:
 
 generate_output() {
 
-    select result in piccolo tortoise drizzle ent sqlc;
+    select result in piccolo tortoise oxyde drizzle ent sqlc;
     do
         case $result in "piccolo") 
             echo '# Piccolo ORM + FastAPI'
             ;; 
             "tortoise") 
             echo '# Tortoise ORM + FastAPI'
+            ;;
+            "oxyde") 
+            echo '# Oxyde ORM + FastAPI'
             ;;
             "drizzle") 
             echo '# Drizzle ORM + Hono'
@@ -48,7 +51,6 @@ generate_output() {
         echo "### Related table (single row)"
         echo '```bash'
         bombardier -c 500 -d 1m -l --print=intro,result http://localhost:8000/related-table/1/
-        echo '```'
     exit 1
     done 
 }
