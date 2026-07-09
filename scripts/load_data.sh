@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd benchmarks/piccolo_orm
-python load_data.py
+uv run load_data.py

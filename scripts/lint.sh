@@ -1,15 +1,15 @@
 #!/bin/bash
 
 echo "Running black..."
-black .
+uv run black .
 echo "-----"
 
 echo "Running mypy..."
-mypy .
+uv run mypy .
 echo "-----"
 
 echo "Running ruff..."
-ruff check . --fix
+uv run ruff check . --fix
 echo "-----"
 
 echo "Finished"
