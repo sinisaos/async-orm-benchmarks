@@ -1,9 +1,36 @@
+[project]
+name = "async-orm-benchmarks"
+version = "0.1.0"
+description = "Performance benchmarks for Python, Typescript and Golang ORMs (read-only operations)"
+readme = "README.md"
+requires-python = ">=3.14"
+
+dependencies = [
+    "asyncpg>=0.31.0",
+    "fastapi>=0.139.0",
+    "marshmallow>=4.3.0",
+    "orjson>=3.11.9",
+    "oxyde>=0.7.1",
+    "piccolo>=1.35.0",
+    "tortoise-orm>=1.1.7",
+    "uvicorn>=0.51.0",
+    "yara-orm>=1.14.3",
+]
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "mypy>=2.2.0",
+    "ruff>=0.15.20",
+]
+
 [tool.ruff]
 line-length = 79
 lint.select = ["F", "E", "W", "I"]
 
 [tool.black]
 line-length = 79
+target-version = ["py314"]
 
 [tool.mypy]
 ignore_missing_imports = true

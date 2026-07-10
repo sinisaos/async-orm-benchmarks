@@ -4,7 +4,7 @@ echo Choose an ORM or driver:
 
 generate_output() {
 
-    select result in piccolo tortoise oxyde drizzle ent sqlc;
+    select result in piccolo tortoise oxyde drizzle ent sqlc yara;
     do
         case $result in "piccolo") 
             echo '# Piccolo ORM + FastAPI'
@@ -23,6 +23,9 @@ generate_output() {
             ;;
             "sqlc") 
             echo '# SQLC + Chi'
+            ;;
+            "yara") 
+            echo '# Yara ORM + FastAPI'
             ;;
             *)
             echo "ORM or driver does not exist!"

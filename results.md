@@ -693,3 +693,119 @@ Statistics        Avg      Stdev        Max
     others - 0
   Throughput:     5.19MB/s
 ```
+
+# Yara ORM + FastAPI
+
+### Small table (50 rows)
+
+```bash
+Bombarding http://localhost:8000/small-table/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec      3309.44    1327.92    8683.89
+  Latency      150.84ms    45.12ms   419.06ms
+  Latency Distribution
+     50%   155.05ms
+     75%   193.92ms
+     90%   218.29ms
+     95%   246.02ms
+     99%   293.80ms
+  HTTP codes:
+    1xx - 0, 2xx - 199095, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:     4.68MB/s
+```
+
+### Small table (single row)
+
+```bash
+Bombarding http://localhost:8000/small-table/1/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec      3309.12    1796.77   12202.64
+  Latency      150.81ms    78.32ms   654.95ms
+  Latency Distribution
+     50%   107.23ms
+     75%   229.99ms
+     90%   293.93ms
+     95%   340.99ms
+     99%   405.03ms
+  HTTP codes:
+    1xx - 0, 2xx - 199085, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:   724.43KB/s
+```
+
+### Mega table (50 rows)
+
+```bash
+Bombarding http://localhost:8000/mega-table/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec      1264.53     832.24    5390.93
+  Latency      393.82ms   306.21ms      1.30s
+  Latency Distribution
+     50%   242.34ms
+     75%   522.38ms
+     90%      0.95s
+     95%      1.01s
+     99%      1.07s
+  HTTP codes:
+    1xx - 0, 2xx - 76368, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:    67.25MB/s
+```
+
+### Mega table (single row)
+
+```bash
+Bombarding http://localhost:8000/mega-table/1/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec      2948.37    1733.64   10863.54
+  Latency      169.18ms    89.05ms   709.11ms
+  Latency Distribution
+     50%   154.82ms
+     75%   267.73ms
+     90%   330.65ms
+     95%   360.01ms
+     99%   433.99ms
+  HTTP codes:
+    1xx - 0, 2xx - 177518, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:     3.69MB/s
+```
+
+### Related table (50 rows)
+
+```bash
+Bombarding http://localhost:8000/related-table/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec       893.23     341.29    1833.17
+  Latency      556.72ms   410.99ms      2.21s
+  Latency Distribution
+     50%   357.93ms
+     75%   594.95ms
+     90%      1.32s
+     95%      1.41s
+     99%      1.54s
+  HTTP codes:
+    1xx - 0, 2xx - 54107, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:    13.69MB/s
+```
+
+### Related table (single row)
+
+```bash
+Bombarding http://localhost:8000/related-table/1/ for 1m0s using 500 connection(s)
+Statistics        Avg      Stdev        Max
+  Reqs/sec       984.40     503.65    3912.79
+  Latency      504.70ms   159.35ms      1.01s
+  Latency Distribution
+     50%   501.96ms
+     75%   667.09ms
+     90%   745.96ms
+     95%   778.92ms
+     99%   836.12ms
+  HTTP codes:
+    1xx - 0, 2xx - 59562, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:   687.57KB/s
+```

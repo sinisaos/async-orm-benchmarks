@@ -16,7 +16,7 @@ git clone https://github.com/sinisaos/async-orm-benchmarks.git
 
 ```bash
 cd async-orm-benchmarks/
-pip install -r requirements.txt
+uv sync
 ```
 
 ### Typescript
@@ -666,6 +666,7 @@ This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier)
 | **Piccolo**   | 6021       | 5009      | 2138      | 3818     | 1594         | 1933        |
 | **Tortoise**  | 5342       | 4597      | 2026      | 3404     | 730          | 1153        |
 | **Oxyde**     | 5459       | 5218      | 1748      | 4748     | 1371         | 1902        |
+| **Yara**      | 3309       | 3309      | 1264      | 2948     | 893          | 984         |
 | **Drizzle**   | 10810      | 10667     | 2511      | 6453     | 2479         | 3094        |
 | **Ent**       | 7795       | 8024      | 5970      | 7477     | 2480         | 2028        |
 | **SQLC**      | 8127       | 8361      | 7009      | 7960     | 6460         | 7139        |
@@ -679,6 +680,7 @@ This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier)
 | **Piccolo**   | 219.0      | 333.0     | 808.0     | 444.0    | 1210.0       | 930.0       |
 | **Tortoise**  | 222.1      | 364.0     | 1040.0    | 498.9    | 1800.0       | 1440.0      |
 | **Oxyde**     | 171.9      | 159.0     | 505.2     | 204.2    | 640.0        | 470.0       |
+| **Yara**      | 293.8      | 405.0     | 1070.0    | 434.0    | 1540.0       | 836.1       |
 | **Drizzle**   | 69.4       | 77.2      | 298.1     | 109.3    | 276.4        | 289.4       |
 | **Ent**       | 278.6      | 268.4     | 373.9     | 289.3    | 544.2        | 599.3       |
 | **SQLC**      | 267.2      | 256.6     | 312.3     | 272.0    | 339.1        | 302.2       |
