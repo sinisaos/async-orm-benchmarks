@@ -1,13 +1,13 @@
-Python async ORMs, query builders and drivers benchmarks.
+ORMs and query builders benchmarks.
 
 ---
 
 ## Instalation
 
-Clone repository in fresh virtualenv.
+Clone repository.
 
 ```bash
-git clone https://github.com/sinisaos/async-orm-benchmarks.git
+git clone --branch ent_drizzle_benchmark https://github.com/sinisaos/async-orm-benchmarks.git
 ```
 
 ## Install requirements
