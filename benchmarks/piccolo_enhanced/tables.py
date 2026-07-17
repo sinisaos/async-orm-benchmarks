@@ -49,12 +49,11 @@ class SharedSQLiteEngine(SQLiteEngine):
     async def _get_shared_connection(self) -> aiosqlite.Connection:
         if self._shared_connection is None:
             async with self._lock:
-                if self._shared_connection is None:
-                    conn = await aiosqlite.connect(**self.connection_kwargs)
-                    # Adding useful PRAGMA's
-                    await conn.execute("PRAGMA journal_mode=WAL;")
-                    await conn.execute("PRAGMA synchronous=NORMAL;")
-                    self._shared_connection = conn
+                conn = await aiosqlite.connect(**self.connection_kwargs)
+                # Adding useful PRAGMA's
+                await conn.execute("PRAGMA journal_mode=WAL;")
+                await conn.execute("PRAGMA synchronous=NORMAL;")
+                self._shared_connection = conn
         return self._shared_connection
 
     async def _run_in_new_connection(
