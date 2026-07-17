@@ -1,9 +1,11 @@
+from contextlib import asynccontextmanager
 from decimal import Decimal
 
 import orjson
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from tables import (
+    DB,
     Answer,
     MegaTable,
     Question,
@@ -22,7 +24,13 @@ class ORJSONResponse(JSONResponse):
         return orjson.dumps(content, default=decimal_serializer)
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    await DB.close_shared_connection()  # type: ignore
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/small-table/")

@@ -1,4 +1,4 @@
-Python async ORMs, query builders and drivers benchmarks.
+Python async ORMs and query builders benchmarks with SQLite.
 
 ---
 
@@ -7,7 +7,7 @@ Python async ORMs, query builders and drivers benchmarks.
 Clone repository in fresh virtualenv.
 
 ```bash
-git clone https://github.com/sinisaos/async-orm-benchmarks.git
+git clone --branch sqlite_benchmarks https://github.com/sinisaos/async-orm-benchmarks.git
 ```
 
 ## Install requirements
@@ -15,14 +15,6 @@ git clone https://github.com/sinisaos/async-orm-benchmarks.git
 ```bash
 cd async-orm-benchmarks/
 uv sync
-```
-
-## Create database
-
-```bash
-sudo -i -u yourpostgresusername psql
-CREATE DATABASE perfdb;
-\q;
 ```
 
 ## Create database tables and load data
@@ -46,23 +38,6 @@ In the second terminal, run the benchmark (from the menu) for the server started
 ```
 
 ## Endpoints
-
-This benchmarks attempts to simulate a realistic comparison of asynch ORMs and drivers.
-As in this [example case](https://github.com/edgedb/imdbench), we simulate the latency between the server and the database to get more realistic benchmarks.
-
-On Linux, this latency can be simulated with `tc` tool like this:
-
-```bash
-sudo tc qdisc replace dev lo root netem delay 1ms
-```
-
-Once we finish our benchmark, it is important to delete the rule which we have set.
-
-```bash
-sudo tc qdisc delete dev lo root
-```
-
----
 
 There are three types of tables.
 
@@ -645,30 +620,20 @@ This benchmarks uses the [Bombardier](https://github.com/codesenberg/bombardier)
 
 ### Average requests per second (reqs/sec)
 
-| ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
-| :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
-| **Piccolo**    | 1908       | 2057      | 1032      | 1757     | 863          | 792         |
-| **Tortoise**   | 2388       | 2160      | 957       | 1550     | 315          | 499         |
-| **SQLAlchemy** | 663        | 1196      | 184       | 1050     | 121          | 369         |
-| **Django**     | 299        | 353       | 113       | 304      | 19           | 17          |
-| **Oxyde**      | 1711       | 1762      | 848       | 1697     | 402          | 447         |
-| **Yara**       | 3829       | 4620      | 989       | 3789     | 466          | 1120        |
-| **Asyncpg**    | 2172       | 2174      | 1153      | 2152     | 1394         | 2064        |
-| **PSQLPy**     | 1222       | 2153      | 564       | 2090     | 882          | 2010        |
-| **Psycopg**    | 1474       | 1488      | 871       | 1392     | 1032         | 1420        |
+| ORM                    | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
+| :--------------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
+| **Piccolo**            | 379        | 743       | 133       | 620      | 145          | 227         |
+| **Piccolo (enhanced)** | 3073       | 3526      | 1055      | 2182     | 610          | 927         |
+| **Tortoise**           | 3090       | 2720      | 769       | 1917     | 303          | 647         |
+| **Oxyde**              | 2531       | 3541      | 744       | 2957     | 485          | 1013        |
+| **Yara**               | 4456       | 4957      | 872       | 4147     | 484          | 1454        |
 
----
+### ### P99 latency (ms)
 
-### P99 latency (ms)
-
-| ORM / Driver   | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
-| :------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
-| **Piccolo**    | 246.1      | 195.9     | 394.8     | 319.0    | 486.4        | 594.5       |
-| **Tortoise**   | 218.9      | 253.4     | 558.2     | 349.2    | 1220.0       | 793.2       |
-| **SQLAlchemy** | 1090.0     | 494.6     | 3320.0    | 519.6    | 7900.0       | 1770.0      |
-| **Django**     | 940.0      | 794.6     | 3720.0    | 930.0    | 10020.0      | 13130.0     |
-| **Oxyde**      | 146.7      | 142.4     | 320.9     | 153.5    | 583.7        | 498.9       |
-| **Yara**       | 90.0       | 65.9      | 285.8     | 80.1     | 494.2        | 258.3       |
-| **Asyncpg**    | 179.0      | 179.8     | 360.1     | 180.9    | 285.5        | 189.4       |
-| **PSQLPy**     | 189.6      | 129.2     | 395.9     | 134.4    | 286.7        | 138.8       |
-| **Psycopg**    | 159.3      | 157.0     | 258.1     | 188.0    | 254.1        | 158.8       |
+| ORM                    | Small (50) | Small (1) | Mega (50) | Mega (1) | Related (50) | Related (1) |
+| :--------------------- | :--------- | :-------- | :-------- | :------- | :----------- | :---------- |
+| **Piccolo**            | 636        | 340       | 1770      | 408      | 1560         | 980         |
+| **Piccolo (enhanced)** | 94         | 92        | 238       | 133      | 397          | 282         |
+| **Tortoise**           | 97         | 108       | 423       | 153      | 960          | 480         |
+| **Oxyde**              | 122        | 91        | 380       | 112      | 577          | 278         |
+| **Yara**               | 84         | 62        | 332       | 70       | 490          | 189         |

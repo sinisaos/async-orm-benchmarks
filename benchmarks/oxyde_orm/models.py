@@ -83,7 +83,6 @@ class MegaTable(Model):
     )
     json_col_1: dict = Field(
         default={"a": 1, "b": "b", "c": [2], "d": {"e": 3}, "f": True},
-        db_type="JSON",
     )
 
     float_col_2: float = Field(default=2.2)
@@ -102,7 +101,6 @@ class MegaTable(Model):
     )
     json_col_2: dict = Field(
         default={"a": 1, "b": "b", "c": [2], "d": {"e": 3}, "f": True},
-        db_type="JSON",
     )
 
     float_col_3: float = Field(default=2.2)
@@ -121,7 +119,6 @@ class MegaTable(Model):
     )
     json_col_3: dict = Field(
         default={"a": 1, "b": "b", "c": [2], "d": {"e": 3}, "f": True},
-        db_type="JSON",
     )
 
     class Meta:

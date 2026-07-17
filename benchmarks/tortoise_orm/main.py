@@ -1,3 +1,4 @@
+import pathlib
 from contextlib import asynccontextmanager
 from decimal import Decimal
 
@@ -15,6 +16,10 @@ from models import (
 from tortoise import Tortoise, connections
 from tortoise.query_utils import Prefetch
 
+CURRENT_DIR = pathlib.Path(__file__).parent.resolve()
+PROJECT_ROOT = CURRENT_DIR.parents[1]
+DATABASE_PATH = PROJECT_ROOT / "benchmark.db"
+
 
 def decimal_serializer(obj):
     if isinstance(obj, Decimal):
@@ -31,28 +36,8 @@ class ORJSONResponse(JSONResponse):
 async def lifespan(_: FastAPI):
     await Tortoise.init(
         _enable_global_fallback=True,
-        config={
-            "connections": {
-                "default": {
-                    "engine": "tortoise.backends.asyncpg",
-                    "credentials": {
-                        "database": "perfdb",
-                        "host": "localhost",
-                        "password": "postgres",
-                        "port": 5432,
-                        "user": "postgres",
-                        "minsize": 5,
-                        "maxsize": 20,
-                    },
-                },
-            },
-            "apps": {
-                "models": {
-                    "models": ["models"],
-                    "default_connection": "default",
-                },
-            },
-        },
+        db_url=f"sqlite://{DATABASE_PATH}",
+        modules={"models": ["models"]},
     )
     yield
     await connections.close_all()

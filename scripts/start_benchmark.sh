@@ -4,28 +4,16 @@ echo Choose an ORM or driver:
 
 generate_output() {
 
-    select result in piccolo tortoise sqlalchemy asyncpg psqlpy psycopg django oxyde yara;
+    select result in piccolo piccolo_enhanced tortoise oxyde yara;
     do
         case $result in "piccolo") 
             echo '# Piccolo ORM'
             ;; 
+            "piccolo_enhanced") 
+            echo '# Piccolo ORM(enhanced)'
+            ;;
             "tortoise") 
             echo '# Tortoise ORM'
-            ;;
-            "sqlalchemy") 
-            echo '# SQLAlchemy ORM'
-            ;; 
-            "asyncpg") 
-            echo '# Asyncpg'
-            ;; 
-            "psqlpy") 
-            echo '# PSQLPy'
-            ;; 
-            "psycopg") 
-            echo '# Psycopg'
-            ;;
-            "django") 
-            echo '# Django ORM'
             ;;
             "oxyde") 
             echo '# Oxyde ORM'

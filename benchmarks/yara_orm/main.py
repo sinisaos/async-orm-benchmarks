@@ -1,3 +1,4 @@
+import pathlib
 from contextlib import asynccontextmanager
 from decimal import Decimal
 
@@ -14,6 +15,10 @@ from models import (
 )
 from yara_orm import Prefetch, YaraOrm
 
+CURRENT_DIR = pathlib.Path(__file__).parent.resolve()
+PROJECT_ROOT = CURRENT_DIR.parents[1]
+DATABASE_PATH = PROJECT_ROOT / "benchmark.db"
+
 
 def decimal_serializer(obj):
     if isinstance(obj, Decimal):
@@ -28,10 +33,7 @@ class ORJSONResponse(JSONResponse):
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    await YaraOrm.init(
-        "postgres://postgres:postgres@localhost:5432/perfdb"
-        "?sslmode=disable&min_size=5&max_size=20"
-    )
+    await YaraOrm.init(f"sqlite://{DATABASE_PATH}")
     yield
     await YaraOrm.close()
 

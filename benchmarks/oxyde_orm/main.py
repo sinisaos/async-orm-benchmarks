@@ -1,3 +1,4 @@
+import pathlib
 from decimal import Decimal
 
 import orjson
@@ -9,6 +10,10 @@ from models import (
     Tag,
 )
 from oxyde import PoolSettings, db
+
+CURRENT_DIR = pathlib.Path(__file__).parent.resolve()
+PROJECT_ROOT = CURRENT_DIR.parents[1]
+DATABASE_PATH = PROJECT_ROOT / "benchmark.db"
 
 
 def decimal_serializer(obj):
@@ -24,8 +29,14 @@ class ORJSONResponse(JSONResponse):
 
 app = FastAPI(
     lifespan=db.lifespan(
-        default="postgres://postgres:postgres@localhost:5432/perfdb",
-        settings=PoolSettings(max_connections=10),
+        default=f"sqlite://{DATABASE_PATH}",
+        settings=PoolSettings(
+            sqlite_journal_mode="WAL",
+            # Balance between speed and safety
+            sqlite_synchronous="NORMAL",
+            # Lock timeout in milliseconds
+            sqlite_busy_timeout=60000,
+        ),
     )
 )
 

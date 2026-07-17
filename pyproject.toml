@@ -1,22 +1,16 @@
 [project]
 name = "async-orm-benchmarks"
 version = "0.1.0"
-description = "Performance benchmarks for async ORMs and drivers in Python (read-only operations)"
+description = "Performance benchmarks for async ORMs in Python wit SQLite (read-only operations)"
 readme = "README.md"
 requires-python = ">=3.14"
 
 dependencies = [
-    "asyncpg>=0.31.0",
-    "django-ninja>=1.6.2",
     "fastapi>=0.139.0",
     "marshmallow>=4.3.0",
-    "mayim>=1.3.2",
     "orjson>=3.11.9",
     "oxyde>=0.7.1",
     "piccolo>=1.35.0",
-    "psqlpy>=0.12.1",
-    "psycopg[binary,pool]>=3.3.4",
-    "sqlalchemy>=2.0.51",
     "tortoise-orm>=1.1.7",
     "uvicorn>=0.51.0",
     "yara-orm>=1.14.3",
